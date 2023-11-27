@@ -97,15 +97,7 @@ class ModelCTC(Model):
         # TODO: 改这里的解码方式
         decoded_pred_list = []
         for item in batch_pred_list:
-            decoded = self.tokenizer.defeaturize(item)
-            decoded_pred_list.append(add_space_after_chinese(decoded))
+            decoded_pred_list.append(" ".join(self.tokenizer.to_tokens(item)))
 
         # Decode Sequences
         return decoded_pred_list
-
-import re
-
-def add_space_after_chinese(text):
-    pattern = r'([\u4e00-\u9fff])'
-    replaced_text = re.sub(pattern, r'\1 ', text)
-    return replaced_text

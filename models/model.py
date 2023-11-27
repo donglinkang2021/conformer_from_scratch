@@ -17,12 +17,7 @@ import os
 import time
 import re
 
-from paddlespeech.s2t.frontend.featurizer import TextFeaturizer
-
-def add_space_after_chinese(text):
-    pattern = r'([\u4e00-\u9fff])'
-    replaced_text = re.sub(pattern, r'\1 ', text)
-    return replaced_text
+from utils.tokenizer import Vocabulary
 
 class Model(nn.Module):
 
@@ -30,8 +25,7 @@ class Model(nn.Module):
         super(Model, self).__init__()
 
         # Tokenizer
-        self.tokenizer = TextFeaturizer(unit_type='char',
-                                        vocab='utils/paddle/vocab.txt')
+        self.tokenizer = Vocabulary.load(tokenizer_params["tokenizer_path"])
 
         # Training Params
         self.encoder_frozen_steps = training_params.get("encoder_frozen_steps", None)
@@ -309,7 +303,7 @@ class Model(nn.Module):
             batch[1] = batch[1].cpu().numpy().tolist()
             outputs_true = []
             for item in batch[1]:
-                outputs_true.append(add_space_after_chinese(self.tokenizer.defeaturize(item)))
+                outputs_true.append(" ".join(self.tokenizer.to_tokens(item)))
 
             # Compute Batch wer and Update total wer
             batch_wer = jiwer.wer(outputs_true, outputs_pred)
