@@ -1,2 +1,5 @@
 data/aishell/wav/train
 data/aishell/wav/dev
+callbacks
+exp
+__pycache__

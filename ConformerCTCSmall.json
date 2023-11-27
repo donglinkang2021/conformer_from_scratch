@@ -1,0 +1,87 @@
+{
+    "model_name": "Conformer CTC Small",
+    "model_type": "CTC",
+
+    "encoder_params": 
+    {
+        "arch": "Conformer",
+        "num_blocks": 16,
+        "dim_model": 176,
+        "ff_ratio": 4,
+        "num_heads": 4,
+        "kernel_size": 31,
+        "Pdrop": 0.1,
+
+        "relative_pos_enc": true,
+        "max_pos_encoding": 10000,
+
+        "conv2d_params":
+        {
+            "num_layers": 2,
+            "filters": [176, 176],
+            "kernel_size": 3,
+            "norm": "batch",
+            "act": "swish"
+        },
+
+        "prepocess_params":
+        {
+            "sample_rate": 16000,
+            "win_length_ms": 25,
+            "hop_length_ms": 10,
+            "n_fft": 512,
+            "n_mels": 80,
+            "normalize": false,
+            "mean": -5.6501,
+            "std": 4.2280
+        },
+
+        "specaug_params":
+        {
+            "spec_augment": true,
+            "mF": 2,
+            "F": 27,
+            "mT": 5,
+            "pS": 0.05
+        }
+
+    },
+    
+    "tokenizer_params":
+    {
+        "tokenizer_path": "./data/aishell/vocab.txt",
+        "vocab_size": 4350
+    },
+
+    "training_params":
+    {
+        "epochs": 450,
+        "batch_size": 8,
+        "accumulated_steps": 2,
+        "mixed_precision": true,
+
+        "optimizer": "Adam",
+        "beta1": 0.9,
+        "beta2": 0.98,
+        "eps": 1e-9,
+        "weight_decay": 1e-6,
+
+        "lr_schedule": "Transformer",
+        "schedule_dim": 176,
+        "warmup_steps": 10000,
+        "K": 2,
+
+        "train_audio_max_length": 256000,
+        "train_label_max_length": 256000,
+        "eval_audio_max_length": null,
+        "eval_label_max_length": null,
+
+        "training_dataset": "AShell1",
+        "training_dataset_path": "data/aishell/wav",
+
+        "evaluation_dataset": "AShell1",
+        "evaluation_dataset_path": "data/aishell/wav",
+
+        "callback_path": "callbacks/ConformerCTCSmall/"
+    }
+}
