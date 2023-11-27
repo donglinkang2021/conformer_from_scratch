@@ -1,10 +1,17 @@
 # README
 
-从零开始的conformer项目，包括数据处理、模型搭建、训练、推理等。
+![data_example](images/data.png)
+
+基于Efficient Conformer的Aishell1中文语音识别项目，包括数据处理、模型搭建、训练、推理等。
 
 ## 环境
 
+- Lenovo XiaoXin Pro 14
 - 硬件只有cpu
+
+```bash
+pip install -r requirement.txt
+```
 
 ## 数据
 
@@ -40,3 +47,8 @@ mv train/S0004 dev
 data/aishell/wav/train
 data/aishell/wav/dev
 ```
+
+## reference🔗
+
+- [[2109.01163\] Efficient conformer: Progressive downsampling and grouped attention for automatic speech recognition (arxiv.org)](https://arxiv.org/abs/2109.01163)
+- [burchim/EfficientConformer: ASRU 2021  Efficient Conformer: Progressive Downsampling and Grouped Attention for Automatic Speech Recognition (github.com)](https://github.com/burchim/EfficientConformer)

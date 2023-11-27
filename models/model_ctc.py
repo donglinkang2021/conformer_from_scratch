@@ -94,7 +94,6 @@ class ModelCTC(Model):
             batch_pred_list.append(pred_list)
 
         # Decode Sequences
-        # TODO: 改这里的解码方式
         decoded_pred_list = []
         for item in batch_pred_list:
             decoded_pred_list.append(" ".join(self.tokenizer.to_tokens(item)))

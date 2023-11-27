@@ -4,9 +4,6 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.tensorboard import SummaryWriter
 
-# Sentencepiece
-import sentencepiece as spm
-
 # Schedulers
 from models.schedules import *
 
@@ -14,8 +11,6 @@ from models.schedules import *
 from tqdm import tqdm
 import jiwer
 import os
-import time
-import re
 
 from utils.tokenizer import Vocabulary
 
